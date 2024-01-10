@@ -1,0 +1,32 @@
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\bin\selenium-manager\linux\selenium-manager
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\bin\selenium-manager\macos\selenium-manager
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\bin\selenium-manager\windows\selenium-manager.exe
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\bin\AutoDown.exe.config
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\bin\AutoDown.exe
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\bin\AutoDown.pdb
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\MoneyPlus\obj\Debug\AutoDown.csproj.AssemblyReference.cache
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\MoneyPlus\obj\Debug\AutoDown.csproj.SuggestedBindingRedirects.cache
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\MoneyPlus\obj\Debug\MoneyPlus.Properties.Resources.resources
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\MoneyPlus\obj\Debug\AutoDown.csproj.GenerateResource.cache
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\MoneyPlus\obj\Debug\AutoDown.csproj.CoreCompileInputs.cache
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\MoneyPlus\obj\Debug\AutoDown.csproj.CopyComplete
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\MoneyPlus\obj\Debug\AutoDown.exe
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\MoneyPlus\obj\Debug\AutoDown.pdb
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\MoneyPlus\obj\Debug\AutoDown.GUI.Forms.AutoDown.resources
+C:\Users\huych\OneDrive\Máy tính\linh tinh\AutoDown\MoneyPlus\obj\Debug\AutoDown.GUI.Forms.frmLoading.resources
+D:\CodeFolder\Project\AutoDown\bin\selenium-manager\linux\selenium-manager
+D:\CodeFolder\Project\AutoDown\bin\selenium-manager\macos\selenium-manager
+D:\CodeFolder\Project\AutoDown\bin\selenium-manager\windows\selenium-manager.exe
+D:\CodeFolder\Project\AutoDown\bin\AutoDown.exe.config
+D:\CodeFolder\Project\AutoDown\bin\AutoDown.exe
+D:\CodeFolder\Project\AutoDown\bin\AutoDown.pdb
+D:\CodeFolder\Project\AutoDown\MoneyPlus\obj\Debug\AutoDown.csproj.AssemblyReference.cache
+D:\CodeFolder\Project\AutoDown\MoneyPlus\obj\Debug\AutoDown.csproj.SuggestedBindingRedirects.cache
+D:\CodeFolder\Project\AutoDown\MoneyPlus\obj\Debug\AutoDown.GUI.Forms.AutoDown.resources
+D:\CodeFolder\Project\AutoDown\MoneyPlus\obj\Debug\AutoDown.GUI.Forms.frmLoading.resources
+D:\CodeFolder\Project\AutoDown\MoneyPlus\obj\Debug\MoneyPlus.Properties.Resources.resources
+D:\CodeFolder\Project\AutoDown\MoneyPlus\obj\Debug\AutoDown.csproj.GenerateResource.cache
+D:\CodeFolder\Project\AutoDown\MoneyPlus\obj\Debug\AutoDown.csproj.CoreCompileInputs.cache
+D:\CodeFolder\Project\AutoDown\MoneyPlus\obj\Debug\AutoDown.csproj.CopyComplete
+D:\CodeFolder\Project\AutoDown\MoneyPlus\obj\Debug\AutoDown.exe
+D:\CodeFolder\Project\AutoDown\MoneyPlus\obj\Debug\AutoDown.pdb
