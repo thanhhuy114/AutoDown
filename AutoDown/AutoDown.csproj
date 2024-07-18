@@ -122,8 +122,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include=".gitattributes" />
-    <Content Include=".gitignore" />
     <Content Include="chu H.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
