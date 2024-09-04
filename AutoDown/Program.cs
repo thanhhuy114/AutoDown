@@ -8,10 +8,9 @@ namespace AutoDown
         [STAThread]
         static void Main()
         {
-            //Đảm bảo chỉ có 1 view xuất hiện trên màn hình
+            // Đảm bảo chỉ có 1 view xuất hiện trên màn hình
             if (!Utils.CheckSemaphoreAvailability()) { return; }
 
-            // Nếu Semaphore sẵn sàng, tiếp tục chạy ứng dụng
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new GUI.Forms.AutoDown());

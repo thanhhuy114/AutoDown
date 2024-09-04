@@ -1,6 +1,5 @@
 ﻿using AutoDown.Constants;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using System;
@@ -13,11 +12,10 @@ using System.Windows.Forms;
 
 namespace AutoDown.GUI.Forms
 {
-    public partial class AutoDown : Form
+    public partial class AutoDown2 : Form
     {
         const string TEXT_FORMAT_PAGE = "0000000X";
-       
-        ChromeOptions options;
+
         IWebDriver webDriver;
 
         void LoadWeb()
@@ -32,7 +30,9 @@ namespace AutoDown.GUI.Forms
                 }));
             });
 
-            webDriver = new ChromeDriver();
+            webDriver = new OpenQA.Selenium.Safari.SafariDriver();
+
+            //OpenQA.Selenium.
 
             try
             {
@@ -255,18 +255,12 @@ namespace AutoDown.GUI.Forms
                 MessageBox.Show("Đã tải xong", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }));
         }
-        public AutoDown()
+        public AutoDown2()
         {
             InitializeComponent();
 
             txtFolderPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             txtNameFile.Text = "h";
-
-
-            options = new ChromeOptions();
-
-            // không hiện cửa sổ chrome ('--headless')
-            options.AddArgument("--headless");
         }
 
         string formatUrlImage(string url)
@@ -300,6 +294,7 @@ namespace AutoDown.GUI.Forms
             t.IsBackground = true;
             t.Start();
         }
+
         static bool IsWebDriverRunning()
         {
             Process[] processes = Process.GetProcessesByName("chromedriver");
@@ -374,7 +369,7 @@ namespace AutoDown.GUI.Forms
         private void label3_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                 "Lưu ý: Tắt app trước khi tắt web\n" +
+                "Lưu ý: Tắt app trước khi tắt web\n" +
                 "Bước 1: Nhấn mở Web (không mở thì lấy gì tải!). \n" +
                 "Bước 2: Đăng nhập và tìm mở phần tài liệu cần tải (hoặc dán link tài liệu vào luôn cũng được.\n" +
                 "Bước 3: Nhấn Nút bắt đầu tải và đi lướt TikTok hay gì đó...\n" +
