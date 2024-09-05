@@ -42,7 +42,7 @@ namespace AutoDown.GUI.Forms
             this.components = new System.ComponentModel.Container();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            this.label1 = new System.Windows.Forms.Label();
+            this.txtLabel = new System.Windows.Forms.Label();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.BorderlessForm = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
@@ -51,17 +51,17 @@ namespace AutoDown.GUI.Forms
             // 
             // label1
             // 
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(97)))), ((int)(((byte)(166)))));
-            this.label1.Location = new System.Drawing.Point(4, 79);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(135, 38);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Đang tải....";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
+            this.txtLabel.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(97)))), ((int)(((byte)(166)))));
+            this.txtLabel.Location = new System.Drawing.Point(4, 79);
+            this.txtLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.txtLabel.Name = "label1";
+            this.txtLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.txtLabel.Size = new System.Drawing.Size(135, 38);
+            this.txtLabel.TabIndex = 0;
+            this.txtLabel.Text = "Đang tải....";
+            this.txtLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guna2PictureBox1
             // 
@@ -97,7 +97,7 @@ namespace AutoDown.GUI.Forms
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(145, 129);
             this.ControlBox = false;
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtLabel);
             this.Controls.Add(this.guna2PictureBox1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -113,7 +113,7 @@ namespace AutoDown.GUI.Forms
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label txtLabel;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private System.Windows.Forms.Timer timer;
         private Guna.UI2.WinForms.Guna2BorderlessForm BorderlessForm;

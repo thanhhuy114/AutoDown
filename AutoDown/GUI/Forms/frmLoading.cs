@@ -1,35 +1,45 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AutoDown.GUI.Forms
 {
     public partial class frmLoading : Form
     {
-        public frmLoading(string text = null)
+        private readonly Action action;
+        public frmLoading(Action action, string label = null)
         {
             InitializeComponent();
 
-            if (text != null)
-                label1.Text = text;
+            this.action = action;
+            if (label != null)
+                txtLabel.Text = label;
         }
 
-        public void show()
+
+        public async void RunTask()
         {
-            Utils.StartNewThread(() =>
+
+            if (this.InvokeRequired)
             {
-                Invoke((Action)(() =>
-                {
-                    ShowDialog();
-                }));
-            });
-        }
+                Invoke((Action)(() => { Show(); }));
+            }
+            else
+            {
+                Show();
+            }
 
-        public void close()
-        {
-            Invoke((Action)(() =>
+            await Task.Run(action);
+
+            if (this.InvokeRequired)
+            {
+                Invoke((Action)(() => { Close(); }));
+            }
+            else
             {
                 Close();
-            }));
+            }
+
         }
     }
 }
