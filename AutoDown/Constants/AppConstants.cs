@@ -7,8 +7,10 @@
         public const string URL_PAGE_LOGIN = @"https://sinhvien.cofer.edu.vn/sinh-vien-dang-nhap.html";
 
         public const string URL_AVATA_DEFAULT = "https://res.cloudinary.com/dvrzyngox/image/upload/v1705665694/darkshop/image/avata/amqefaox5aisymtoa3in.png";
+        public const string TEXT_FORMAT_PAGE = "0000000X";
+        public const string URL_VALID = "sinhvien.cofer.edu.vn";
 
-        public const string USERNAME = "2203774";
-        public const string PASSWORD = "linhngoc79";
+        public const string FORMAT_IMAGE_DIRECTORY_NAME = "HT_";
+        public const int FORMAT_IMAGE_DIRECTORY_LENGHT = 6;
     }
 }

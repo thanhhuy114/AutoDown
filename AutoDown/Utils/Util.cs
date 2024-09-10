@@ -2,9 +2,9 @@
 using System;
 using System.Threading;
 
-namespace AutoDown
+namespace AutoDown.Utils
 {
-    public static class Utils
+    public static class Util
     {
         public static void StartNewThread(ThreadStart start)
         {

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AutoDown.GUI.Forms;
+using AutoDown.Utils;
+using System;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace AutoDown
@@ -9,13 +12,13 @@ namespace AutoDown
         static void Main()
         {
             // Đảm bảo chỉ có 1 view xuất hiện trên màn hình
-            if (!Utils.CheckSemaphoreAvailability()) { return; }
+            if (!Util.CheckSemaphoreAvailability()) { return; }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GUI.Forms.AutoDown());
 
-            Utils.DisposeSemaphore();
+            Application.Run(new frmMain());
+            Util.DisposeSemaphore();
         }
     }
 }

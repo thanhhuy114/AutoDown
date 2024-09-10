@@ -15,20 +15,23 @@ namespace AutoDown.GUI.Forms
             if (label != null)
                 txtLabel.Text = label;
         }
+        public void setText(string text) { txtLabel.Text = text; }
 
 
-        public async void RunTask()
+        public void RunTask()
         {
-
             if (this.InvokeRequired)
             {
-                Invoke((Action)(() => { Show(); }));
+                Invoke((Action)(() => { ShowDialog(); }));
             }
             else
             {
-                Show();
+                ShowDialog();
             }
+        }
 
+        private async void frmLoading_Shown(object sender, EventArgs e)
+        {
             await Task.Run(action);
 
             if (this.InvokeRequired)
@@ -39,7 +42,6 @@ namespace AutoDown.GUI.Forms
             {
                 Close();
             }
-
         }
     }
 }
