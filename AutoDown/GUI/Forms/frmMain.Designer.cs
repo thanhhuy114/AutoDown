@@ -428,7 +428,7 @@ namespace AutoDown.GUI.Forms
             this.panel2.Size = new System.Drawing.Size(330, 49);
             this.panel2.TabIndex = 0;
             // 
-            // AutoDown
+            // frmMain
             // 
             this.AccessibleName = "";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -442,9 +442,9 @@ namespace AutoDown.GUI.Forms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
-            this.Name = "AutoDown";
+            this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AutoDown (version 3.0)";
+            this.Text = "AutoDown (version 2.0.0)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AutoDown_FormClosing);
             this.Shown += new System.EventHandler(this.AutoDown_Shown);
             this.panel1.ResumeLayout(false);
