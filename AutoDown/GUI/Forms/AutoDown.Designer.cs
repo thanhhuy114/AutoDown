@@ -138,7 +138,7 @@ namespace AutoDown.GUI.Forms
             this.btnOpenFolder.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnOpenFolder.ImageSize = new System.Drawing.Size(25, 25);
             this.btnOpenFolder.Location = new System.Drawing.Point(267, 102);
-            this.btnOpenFolder.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnOpenFolder.Margin = new System.Windows.Forms.Padding(2);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.ShadowDecoration.CustomizableEdges = customizableEdges4;
             this.btnOpenFolder.Size = new System.Drawing.Size(65, 39);
@@ -160,10 +160,10 @@ namespace AutoDown.GUI.Forms
             this.btnDown.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnDown.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDown.ForeColor = System.Drawing.Color.White;
-            this.btnDown.Image = Resources.world_wide_web;
+            this.btnDown.Image = global::AutoDown.Properties.Resources.world_wide_web;
             this.btnDown.ImageSize = new System.Drawing.Size(26, 26);
             this.btnDown.Location = new System.Drawing.Point(19, 8);
-            this.btnDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDown.Margin = new System.Windows.Forms.Padding(2);
             this.btnDown.Name = "btnDown";
             this.btnDown.ShadowDecoration.CustomizableEdges = customizableEdges6;
             this.btnDown.Size = new System.Drawing.Size(313, 39);
@@ -206,7 +206,7 @@ namespace AutoDown.GUI.Forms
             this.btnStartDown.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartDown.ForeColor = System.Drawing.Color.White;
             this.btnStartDown.Location = new System.Drawing.Point(99, 281);
-            this.btnStartDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnStartDown.Margin = new System.Windows.Forms.Padding(2);
             this.btnStartDown.Name = "btnStartDown";
             this.btnStartDown.ShadowDecoration.CustomizableEdges = customizableEdges10;
             this.btnStartDown.Size = new System.Drawing.Size(143, 39);
@@ -245,11 +245,11 @@ namespace AutoDown.GUI.Forms
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "AutoDown";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AutoDown (version 3.0)";
+            this.Text = "AutoDown v1.0.0";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AutoDown_FormClosing);
             this.Shown += new System.EventHandler(this.AutoDown_Shown);
             this.ResumeLayout(false);

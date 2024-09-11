@@ -19,9 +19,9 @@ namespace AutoDown.GUI.Forms
          */
         const string URL_PAGE_LOGIN = @"https://sinhvien.cofer.edu.vn/sinh-vien-dang-nhap.html";
         const string URL_AVATA = "https://res.cloudinary.com/dvrzyngox/image/upload/v1705665694/darkshop/image/avata/amqefaox5aisymtoa3in.png";
-        const string USERNAME = "2203774";
+        const string USERNAME = "22037755";
         const string TEXT_FORMAT_PAGE = "0000000X";
-        const string PASSWORD = "linhngoc79";
+        const string PASSWORD = "xxxxxxx";
 
         ChromeOptions options;
         IWebDriver webDriver;
