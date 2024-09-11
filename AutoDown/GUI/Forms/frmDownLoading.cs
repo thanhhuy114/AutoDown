@@ -7,38 +7,40 @@ namespace AutoDown.GUI.Forms
     public partial class frmDownLoading : Form
     {
         private Action action;
+        private Action cancelAction;
+
         public frmDownLoading()
         {
             InitializeComponent();
         }
+
         public void SetText(string text)
         {
             if (txtLabel.InvokeRequired)
-            {
                 Invoke((Action)(() =>
                 {
                     txtLabel.Text = text;
                     Console.WriteLine(text);
                 }));
-            }
-            else { txtLabel.Text = text; }
+            else
+                txtLabel.Text = text;
         }
-        public void SetAction(Action action) { this.action = action; }
+
+        public void SetAction(Action action)
+        {
+            this.action = action;
+        }
 
         private async void frmDownLoading_Shown(object sender, EventArgs e)
         {
             await Task.Run(action);
 
-            if (this.InvokeRequired)
-            {
+            if (InvokeRequired)
                 Invoke((Action)(() => { Close(); }));
-            }
             else
-            {
                 Close();
-            }
         }
-        private Action cancelAction;
+
         public void CancelAction(Action action)
         {
             cancelAction = action;

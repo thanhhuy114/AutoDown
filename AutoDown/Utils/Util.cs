@@ -1,20 +1,25 @@
-﻿using System.IO;
-using System;
+﻿using System;
+using System.IO;
 using System.Threading;
 
 namespace AutoDown.Utils
 {
     public static class Util
     {
+        //  RUNNNING PATH
+        private static string runningPath;
+
+
+        // SEMAPPHORE
+        private static Semaphore semaphore;
+
         public static void StartNewThread(ThreadStart start)
         {
-            Thread thread = new Thread(start);
+            var thread = new Thread(start);
             thread.IsBackground = true;
             thread.Start();
         }
 
-        //  RUNNNING PATH
-        private static string runningPath = null;
         public static string GetRunningPath()
         {
             if (runningPath == null)
@@ -26,9 +31,6 @@ namespace AutoDown.Utils
             return runningPath;
         }
 
-
-        // SEMAPPHORE
-        private static Semaphore semaphore = null;
         public static bool CheckSemaphoreAvailability()
         {
             const string semaphoreName = "AutoDown";
@@ -38,7 +40,7 @@ namespace AutoDown.Utils
             semaphore = new Semaphore(semaphoreCount, semaphoreCount, semaphoreName);
 
             // Kiểm tra xem Semaphore có sẵn sàng để sử dụng hay không
-            bool isSemaphoreAvailable = semaphore.WaitOne(TimeSpan.Zero);
+            var isSemaphoreAvailable = semaphore.WaitOne(TimeSpan.Zero);
 
             return isSemaphoreAvailable;
         }

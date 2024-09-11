@@ -1,21 +1,20 @@
-﻿using AutoDown.Constants;
+﻿using System;
+using System.Collections.Generic;
+using AutoDown.Constants;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace AutoDown.Utils
 {
     public class WebView
     {
+        private readonly ChromeOptions options;
+        private IWebDriver webDriver;
+
         public WebView(ChromeOptions options)
         {
             this.options = options;
         }
-
-        private ChromeOptions options;
-        private IWebDriver webDriver;
 
         public bool IsWebViewShow()
         {
@@ -42,23 +41,24 @@ namespace AutoDown.Utils
 
         public bool IsValidUrl()
         {
-            return (webDriver.Url.Contains(AppConstants.URL_VALID));
+            return webDriver.Url.Contains(AppConstants.URL_VALID);
         }
 
         public bool CheckExistDocument()
         {
-            ReadOnlyCollection<IWebElement> iframeElements = webDriver.FindElements(By.CssSelector("iframe[id='view']"));
+            var iframeElements = webDriver.FindElements(By.CssSelector("iframe[id='view']"));
 
             if (iframeElements.Count == 0) return false;
 
-            if (!iframeElements[0].GetAttribute("src").Contains("https://media.cofer.edu.vn//viewer.html")) return false;
+            if (!iframeElements[0].GetAttribute("src").Contains("https://media.cofer.edu.vn//viewer.html"))
+                return false;
 
             return true;
         }
 
         public string GetDocumentTitle()
         {
-            ReadOnlyCollection<IWebElement> iframeElements = webDriver.FindElements(By.CssSelector("div[class='title-khoahoc']"));
+            var iframeElements = webDriver.FindElements(By.CssSelector("div[class='title-khoahoc']"));
 
             if (iframeElements.Count == 0) return "";
 
@@ -67,38 +67,35 @@ namespace AutoDown.Utils
 
         public string GetURLDocument()
         {
-            ReadOnlyCollection<IWebElement> iframeElements = webDriver.FindElements(By.CssSelector("iframe[id='view']"));
+            var iframeElements = webDriver.FindElements(By.CssSelector("iframe[id='view']"));
 
             return iframeElements[0].GetAttribute("src");
         }
 
         public string GetURLImage()
         {
-            ReadOnlyCollection<IWebElement> imageElements = webDriver.FindElements(By.CssSelector("input[type='image']"));
+            var imageElements = webDriver.FindElements(By.CssSelector("input[type='image']"));
 
             while (true)
             {
                 imageElements = webDriver.FindElements(By.CssSelector("input[type='image']"));
 
-                List<string> images = new List<string>();
+                var images = new List<string>();
                 foreach (var imageElement in imageElements)
                 {
-                    string urlByElement = imageElement.GetAttribute("src");
+                    var urlByElement = imageElement.GetAttribute("src");
                     if (!string.IsNullOrEmpty(urlByElement))
                         images.Add(urlByElement);
 
                     // chỉ cần tìm được 1 url rồi thay đổi số page là được
-                    if (!string.IsNullOrEmpty(urlByElement) && urlByElement.Contains("?page"))
-                    {
-                        return urlByElement;
-                    }
+                    if (!string.IsNullOrEmpty(urlByElement) && urlByElement.Contains("?page")) return urlByElement;
                 }
             }
         }
 
         public int GetCounterPage()
         {
-            string pageHtml = webDriver.PageSource;
+            var pageHtml = webDriver.PageSource;
             var listPage = webDriver.FindElements(By.XPath("//input[@class='docThumb docUnselectable']"));
             return listPage.Count;
         }
@@ -136,22 +133,22 @@ namespace AutoDown.Utils
         {
             try
             {
-                IWebElement username = webDriver.FindElement(By.CssSelector("#UserName"));
-                IWebElement passwordForm = webDriver.FindElement(By.CssSelector("#Password"));
-                IWebElement title = webDriver.FindElement(By.XPath("//h4[@lang='loginnews-pagetitle']"));
-                IWebElement button = webDriver.FindElement(By.XPath("//input[@class='button']"));
-                IWebElement image = webDriver.FindElement(By.CssSelector("div.text-center > img"));
-                IWebElement wobbly = webDriver.FindElement(By.XPath("//div[@class='col-lg-9 col-md-8']"));
-                IWebElement header = webDriver.FindElement(By.XPath("//header"));
-                IWebElement downloadArea = webDriver.FindElement(By.XPath("//div[@class='box-download-app']"));
-                IWebElement formLogin = webDriver.FindElement(By.ClassName("col-lg-3"));
-                IWebElement forParents = webDriver.FindElement(By.ClassName("form-footer"));
-                IWebElement buttonLogInWithMicrosoft = webDriver.FindElement(By.ClassName("login-with-microsoft-btn"));
+                var username = webDriver.FindElement(By.CssSelector("#UserName"));
+                var passwordForm = webDriver.FindElement(By.CssSelector("#Password"));
+                var title = webDriver.FindElement(By.XPath("//h4[@lang='loginnews-pagetitle']"));
+                var button = webDriver.FindElement(By.XPath("//input[@class='button']"));
+                var image = webDriver.FindElement(By.CssSelector("div.text-center > img"));
+                var wobbly = webDriver.FindElement(By.XPath("//div[@class='col-lg-9 col-md-8']"));
+                var header = webDriver.FindElement(By.XPath("//header"));
+                var downloadArea = webDriver.FindElement(By.XPath("//div[@class='box-download-app']"));
+                var formLogin = webDriver.FindElement(By.ClassName("col-lg-3"));
+                var forParents = webDriver.FindElement(By.ClassName("form-footer"));
+                var buttonLogInWithMicrosoft = webDriver.FindElement(By.ClassName("login-with-microsoft-btn"));
 
-                if (studentID.Trim() != String.Empty)
+                if (studentID.Trim() != string.Empty)
                     username.SendKeys(studentID.Trim());
 
-                if (password.Trim() != String.Empty)
+                if (password.Trim() != string.Empty)
                     passwordForm.SendKeys(password.Trim());
 
 

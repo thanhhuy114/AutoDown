@@ -1,18 +1,17 @@
-﻿using AutoDown.GUI.Forms;
-using AutoDown.Utils;
-using System;
-using System.Threading;
+﻿using System;
 using System.Windows.Forms;
+using AutoDown.GUI.Forms;
+using AutoDown.Utils;
 
 namespace AutoDown
 {
     internal static class Program
     {
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             // Đảm bảo chỉ có 1 view xuất hiện trên màn hình
-            if (!Util.CheckSemaphoreAvailability()) { return; }
+            if (!Util.CheckSemaphoreAvailability()) return;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

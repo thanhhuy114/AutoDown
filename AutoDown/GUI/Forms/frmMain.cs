@@ -1,9 +1,11 @@
-﻿using AutoDown.Utils;
-using OpenQA.Selenium.Chrome;
-using System;
+﻿using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-
+using AutoDown.Properties;
+using AutoDown.Utils;
+using OpenQA.Selenium.Chrome;
 
 namespace AutoDown.GUI.Forms
 {
@@ -11,13 +13,6 @@ namespace AutoDown.GUI.Forms
     {
         private readonly WebView webView;
         private DownloadImage download;
-        private void GetSettings()
-        {
-            txtPassword.Text = Properties.Settings.Default.Password;
-            txtMSSV.Text = Properties.Settings.Default.MSSV;
-            txtPDFFileName.Text = Properties.Settings.Default.FileName;
-            checkboxUseDocmumentName.Checked = Properties.Settings.Default.IsUseDocName;
-        }
 
         public frmMain()
         {
@@ -36,6 +31,14 @@ namespace AutoDown.GUI.Forms
             webView = new WebView(options);
         }
 
+        private void GetSettings()
+        {
+            txtPassword.Text = Settings.Default.Password;
+            txtMSSV.Text = Settings.Default.MSSV;
+            txtPDFFileName.Text = Settings.Default.FileName;
+            checkboxUseDocmumentName.Checked = Settings.Default.IsUseDocName;
+        }
+
         private void SetStatus(string text)
         {
             if (btnDown.InvokeRequired)
@@ -46,19 +49,17 @@ namespace AutoDown.GUI.Forms
 
         private void btnOpenFolder_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            var folderBrowserDialog = new FolderBrowserDialog();
 
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
                 txtFolderPath.Text = folderBrowserDialog.SelectedPath;
-            }
         }
 
         private void btnLoadWeb_Click(object sender, EventArgs e)
         {
             if (!webView.IsWebViewShow())
             {
-                frmLoading frmLoading = new frmLoading(() =>
+                var frmLoading = new frmLoading(() =>
                 {
                     webView.Open();
 
@@ -77,7 +78,7 @@ namespace AutoDown.GUI.Forms
             }
             else
             {
-                frmLoading frmLoading = new frmLoading(() =>
+                var frmLoading = new frmLoading(() =>
                 {
                     webView.Close();
 
@@ -94,16 +95,17 @@ namespace AutoDown.GUI.Forms
             Invoke((Action)(() =>
             {
                 pnlAutoComplate.Visible = !pnlAutoComplate.Visible;
-                this.Size = new System.Drawing.Size(this.Size.Width, this.Size.Height - (pnlAutoComplate.Size.Height * (pnlAutoComplate.Visible ? -1 : 1)));
+                Size = new Size(Size.Width,
+                    Size.Height - pnlAutoComplate.Size.Height * (pnlAutoComplate.Visible ? -1 : 1));
             }));
         }
 
         private void btnStartDown_Click(object sender, EventArgs e)
         {
             var dialog = DialogResult.No;
-            frmLoading loading = new frmLoading(() =>
+            var loading = new frmLoading(() =>
             {
-                bool isWebShow = webView.IsWebViewShowSync();
+                var isWebShow = webView.IsWebViewShowSync();
 
                 if (!isWebShow)
                 {
@@ -113,29 +115,30 @@ namespace AutoDown.GUI.Forms
 
                 if (!webView.IsValidUrl())
                 {
-                    MessageBox.Show("Chúng tôi chỉ cho phép tải tài liệu trên trang \"sinhvien.cofer.edu.vn\"", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Chúng tôi chỉ cho phép tải tài liệu trên trang \"sinhvien.cofer.edu.vn\"",
+                        "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
 
                 if (!webView.CheckExistDocument())
                 {
-                    MessageBox.Show("Không tìm thấy tài liệu trên trang này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Không tìm thấy tài liệu trên trang này", "Thông Báo", MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
 
                     return;
                 }
 
-                dialog = MessageBox.Show($"Bạn có chắc muốn tải{Environment.NewLine}{webView.GetDocumentTitle()}", "Tải xuống", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-
+                dialog = MessageBox.Show($"Bạn có chắc muốn tải{Environment.NewLine}{webView.GetDocumentTitle()}",
+                    "Tải xuống", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }, "Chờ tí");
 
             loading.ShowDialog();
 
             if (dialog == DialogResult.No) return;
 
-            frmDownLoading loadF = new frmDownLoading();
-            CancellationTokenSource cts = new CancellationTokenSource();
+            var loadF = new frmDownLoading();
+            var cts = new CancellationTokenSource();
             var progress = new Progress<ProgressReport>(report =>
             {
                 if (report.Exception != null)
@@ -149,13 +152,11 @@ namespace AutoDown.GUI.Forms
                     MessageBox.Show("Đã tải xong", "Thông Báo", MessageBoxButtons.OK);
                     return;
                 }
+
                 loadF.SetText(report.Message);
             });
 
-            loadF.SetAction(() =>
-            {
-                DownLoad(progress, cts.Token);
-            });
+            loadF.SetAction(() => { DownLoad(progress, cts.Token); });
 
             loadF.CancelAction(() => { cts.Cancel(); });
 
@@ -171,14 +172,17 @@ namespace AutoDown.GUI.Forms
             options.AddArgument("--ignore-certificate-errors");
             download = new DownloadImage(new WebView(options));
 
-            download.StartDownLoad(webView.GetURLDocument(), txtFolderPath.Text, checkboxUseDocmumentName.Checked ? webView.GetDocumentTitle() : txtPDFFileName.Text, progress, cancellationToken);
+            download.StartDownLoad(webView.GetURLDocument(), txtFolderPath.Text,
+                checkboxUseDocmumentName.Checked ? webView.GetDocumentTitle() : txtPDFFileName.Text, progress,
+                cancellationToken);
         }
+
         private void AutoDown_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (webView.IsWebViewShow())
             {
                 e.Cancel = true;
-                frmLoading frmLoading = new frmLoading(() =>
+                var frmLoading = new frmLoading(() =>
                 {
                     webView.Close();
 
@@ -186,9 +190,11 @@ namespace AutoDown.GUI.Forms
                 }, "Đang đóng...");
                 frmLoading.RunTask();
             }
+
             if (download != null)
                 download.Dispoes();
         }
+
         private void AutoDown_Shown(object sender, EventArgs e)
         {
             btnDown.Focus();
@@ -197,7 +203,7 @@ namespace AutoDown.GUI.Forms
         private void btnTutorial_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                 "Lưu ý: Tắt app trước khi tắt web\n" +
+                "Lưu ý: Tắt app trước khi tắt web\n" +
                 "Bước 1: Nhấn mở Web (không mở thì lấy gì tải!). \n" +
                 "Bước 2: Đăng nhập và tìm mở phần tài liệu cần tải (hoặc dán link tài liệu vào luôn cũng được.\n" +
                 "Bước 3: Nhấn Nút bắt đầu tải và đi lướt TikTok hay gì đó...\n" +
@@ -207,47 +213,43 @@ namespace AutoDown.GUI.Forms
                 "Bước 7: Nói là hết rồi mà còn ráng đọc tới đây chi nữa thím :< \n" +
                 "Cảm ơn <3", "HƯỚNG DẪN SỬ DỤNG AUTODOWN by Huy");
 
-            System.Diagnostics.Process.Start("https://github.com/thanhhuy114/AutoDown");
+            Process.Start("https://github.com/thanhhuy114/AutoDown");
         }
 
         private void txtPassword_IconRightClick(object sender, EventArgs e)
         {
             if (txtPassword.UseSystemPasswordChar)
-            {
-                this.txtPassword.IconRight = Properties.Resources.show;
-            }
+                txtPassword.IconRight = Resources.show;
             else
-            {
-                this.txtPassword.IconRight = Properties.Resources.hide;
-            }
+                txtPassword.IconRight = Resources.hide;
 
             txtPassword.UseSystemPasswordChar = !txtPassword.UseSystemPasswordChar;
         }
 
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Password = txtPassword.Text;
-            Properties.Settings.Default.Save();
+            Settings.Default.Password = txtPassword.Text;
+            Settings.Default.Save();
         }
 
         private void txtMSSV_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.MSSV = txtMSSV.Text;
-            Properties.Settings.Default.Save();
+            Settings.Default.MSSV = txtMSSV.Text;
+            Settings.Default.Save();
         }
 
         private void checkboxUseDocmumentName_CheckedChanged(object sender, EventArgs e)
         {
             txtPDFFileName.Enabled = !checkboxUseDocmumentName.Checked;
 
-            Properties.Settings.Default.IsUseDocName = checkboxUseDocmumentName.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.IsUseDocName = checkboxUseDocmumentName.Checked;
+            Settings.Default.Save();
         }
 
         private void txtPDFFileName_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.FileName = txtPDFFileName.Text;
-            Properties.Settings.Default.Save();
+            Settings.Default.FileName = txtPDFFileName.Text;
+            Settings.Default.Save();
         }
     }
 }

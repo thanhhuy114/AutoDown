@@ -1,10 +1,11 @@
-﻿using AutoDown.Constants;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
+using AutoDown.Constants;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 
 namespace AutoDown.Utils
 {
@@ -15,12 +16,13 @@ namespace AutoDown.Utils
         public bool IsSuccess { get; set; }
         public Exception Exception { get; set; }
     }
+
     public class DownloadImage
     {
-        private WebView webView;
         private CancellationToken cancellationToken;
-        private string savePath;
         private string pdfFileName;
+        private string savePath;
+        private readonly WebView webView;
 
         public DownloadImage(WebView webView)
         {
@@ -35,7 +37,9 @@ namespace AutoDown.Utils
         private bool IsValidDirectory(string directoryName)
         {
             // Format => "HT_xxx", note xxx (000 -> 999)
-            return (directoryName.Length == AppConstants.FORMAT_IMAGE_DIRECTORY_LENGHT && directoryName.Substring(0, 3) == AppConstants.FORMAT_IMAGE_DIRECTORY_NAME && int.TryParse(directoryName.Substring(3, 3), out _));
+            return directoryName.Length == AppConstants.FORMAT_IMAGE_DIRECTORY_LENGHT &&
+                   directoryName.Substring(0, 3) == AppConstants.FORMAT_IMAGE_DIRECTORY_NAME &&
+                   int.TryParse(directoryName.Substring(3, 3), out _);
         }
 
         private int GetNumberInDirectoryName(string directoryName)
@@ -50,35 +54,34 @@ namespace AutoDown.Utils
                 CreateImageDirectory(directoryImagePath);
 
             // format th001
-            string[] directoryImages = Directory.GetDirectories(directoryImagePath);
+            var directoryImages = Directory.GetDirectories(directoryImagePath);
 
-            directoryImages = directoryImages.Select(item => Path.GetFileName(item)).Where(item => IsValidDirectory(item)).OrderByDescending(i => i).ToArray();
+            directoryImages = directoryImages.Select(item => Path.GetFileName(item))
+                .Where(item => IsValidDirectory(item)).OrderByDescending(i => i).ToArray();
 
             if (directoryImages.Length > 0)
-                return $"{directoryImagePath}{AppConstants.FORMAT_IMAGE_DIRECTORY_NAME}{(GetNumberInDirectoryName(directoryImages[0]) + 1).ToString("000")}";
-            else
-                return $"{directoryImagePath}{AppConstants.FORMAT_IMAGE_DIRECTORY_NAME}000";
+                return
+                    $"{directoryImagePath}{AppConstants.FORMAT_IMAGE_DIRECTORY_NAME}{(GetNumberInDirectoryName(directoryImages[0]) + 1).ToString("000")}";
+            return $"{directoryImagePath}{AppConstants.FORMAT_IMAGE_DIRECTORY_NAME}000";
         }
 
         private void CheckCancel()
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                throw new Exception("Cancel download");
-            }
+            if (cancellationToken.IsCancellationRequested) throw new Exception("Cancel download");
         }
 
 
-        public void StartDownLoad(string url, string savePath, string pdfFileName, IProgress<ProgressReport> progress, CancellationToken _cancellationToken)
+        public void StartDownLoad(string url, string savePath, string pdfFileName, IProgress<ProgressReport> progress,
+            CancellationToken _cancellationToken)
         {
-            this.cancellationToken = _cancellationToken;
+            cancellationToken = _cancellationToken;
             this.savePath = savePath;
             this.pdfFileName = pdfFileName;
-            string directoryImagePath = $"{AppDomain.CurrentDomain.BaseDirectory}Images\\";
+            var directoryImagePath = $"{AppDomain.CurrentDomain.BaseDirectory}Images\\";
 
             webView.Open(url);
 
-            string newDirectoryImagePath = GetImageDirectoryPath(directoryImagePath);
+            var newDirectoryImagePath = GetImageDirectoryPath(directoryImagePath);
             Directory.CreateDirectory(newDirectoryImagePath);
 
 
@@ -89,7 +92,7 @@ namespace AutoDown.Utils
                 CheckCancel();
 
                 progress.Report(
-                  new ProgressReport { Message = "Đang tạo PDF..." });
+                    new ProgressReport { Message = "Đang tạo PDF..." });
 
                 ConvertToPDF(newDirectoryImagePath);
 
@@ -97,7 +100,7 @@ namespace AutoDown.Utils
 
                 webView.Close();
                 progress.Report(
-                   new ProgressReport { IsSuccess = true });
+                    new ProgressReport { IsSuccess = true });
             }
             catch (Exception error)
             {
@@ -111,35 +114,32 @@ namespace AutoDown.Utils
 
         private void ConvertToPDF(string _directoryPath)
         {
-            string directoryPath = Path.Combine(_directoryPath);
-            string[] imageNames = Directory.GetFiles(directoryPath).OrderBy(item => item)
-                                         .ToArray();
+            var directoryPath = Path.Combine(_directoryPath);
+            var imageNames = Directory.GetFiles(directoryPath).OrderBy(item => item)
+                .ToArray();
 
-            string[] pdfFileNames = Directory.GetFiles(savePath);
+            var pdfFileNames = Directory.GetFiles(savePath);
 
-            string newPDFFileName = $"{savePath}\\{pdfFileName}.pdf";
+            var newPDFFileName = $"{savePath}\\{pdfFileName}.pdf";
 
-            int counter = -1;
-            while (File.Exists(newPDFFileName))
-            {
-                newPDFFileName = $"{savePath}\\{pdfFileName}({++counter}).pdf";
-            }
+            var counter = -1;
+            while (File.Exists(newPDFFileName)) newPDFFileName = $"{savePath}\\{pdfFileName}({++counter}).pdf";
 
             ConvertImagesToPdf(imageNames, newPDFFileName);
         }
 
         private void ConvertImagesToPdf(string[] imagePaths, string outputPdfPath)
         {
-            using (PdfDocument document = new PdfDocument())
+            using (var document = new PdfDocument())
             {
-                foreach (string imagePath in imagePaths)
+                foreach (var imagePath in imagePaths)
                 {
                     CheckCancel();
-                    XImage xImage = XImage.FromFile(imagePath);
-                    PdfPage page = document.AddPage();
+                    var xImage = XImage.FromFile(imagePath);
+                    var page = document.AddPage();
                     page.Width = xImage.PointWidth;
                     page.Height = xImage.PointHeight;
-                    XGraphics gfx = XGraphics.FromPdfPage(page);
+                    var gfx = XGraphics.FromPdfPage(page);
                     gfx.DrawImage(xImage, 0, 0, xImage.PointWidth, xImage.PointHeight);
                 }
 
@@ -149,29 +149,29 @@ namespace AutoDown.Utils
 
         private void DownLoading(string drectoryImagePath, IProgress<ProgressReport> progress)
         {
-            string mainUrlImage = webView.GetURLImage();
+            var mainUrlImage = webView.GetURLImage();
 
             if (mainUrlImage == "") throw new Exception("Lỗi không tìm lấy URL ảnh");
 
-            int counterPage = webView.GetCounterPage() + 2;
+            var counterPage = webView.GetCounterPage() + 2;
             mainUrlImage = FormatUrlImage(mainUrlImage);
 
             string newUrlImage;
-            for (int i = 1; i < counterPage; i++)
+            for (var i = 1; i < counterPage; i++)
             {
                 CheckCancel();
                 progress.Report(new ProgressReport
                 {
                     Exception = null,
-                    Percent = (100 * i) / counterPage,
-                    Message = $"Đang xử lý {(100 * i) / counterPage}%..."
+                    Percent = 100 * i / counterPage,
+                    Message = $"Đang xử lý {100 * i / counterPage}%..."
                 });
                 newUrlImage = mainUrlImage.Replace(AppConstants.TEXT_FORMAT_PAGE, $"{i}");
 
                 // Tải xuống hình ảnh và lưu vào thư mục
-                using (var client = new System.Net.WebClient())
+                using (var client = new WebClient())
                 {
-                    string path = drectoryImagePath + $"\\i_{(i - 1).ToString("0000")}.png";
+                    var path = drectoryImagePath + $"\\i_{(i - 1).ToString("0000")}.png";
                     client.DownloadFile(newUrlImage, path);
                 }
             }
@@ -183,16 +183,18 @@ namespace AutoDown.Utils
             {
                 webView.Close();
             }
-            catch { }
+            catch
+            {
+            }
         }
 
-        string FormatUrlImage(string url)
+        private string FormatUrlImage(string url)
         {
-            int startIndex = url.IndexOf("?page=") + 6;
+            var startIndex = url.IndexOf("?page=") + 6;
 
-            int endIndex = url.IndexOf("&zoom");
+            var endIndex = url.IndexOf("&zoom");
 
-            string subString = url.Substring(startIndex, endIndex - startIndex);
+            var subString = url.Substring(startIndex, endIndex - startIndex);
 
             return url.Replace($"?page={subString}", $"?page={AppConstants.TEXT_FORMAT_PAGE}");
         }
