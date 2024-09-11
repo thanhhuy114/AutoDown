@@ -203,15 +203,15 @@ namespace AutoDown.GUI.Forms
         private void btnTutorial_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                "Lưu ý: Tắt app trước khi tắt web\n" +
+                "Lưu ý: Ứng dụng chỉ dùng để tải tài liệu trên \"sinhvien.cofer.edu.vn\"\n" +
                 "Bước 1: Nhấn mở Web (không mở thì lấy gì tải!). \n" +
                 "Bước 2: Đăng nhập và tìm mở phần tài liệu cần tải (hoặc dán link tài liệu vào luôn cũng được.\n" +
                 "Bước 3: Nhấn Nút bắt đầu tải và đi lướt TikTok hay gì đó...\n" +
                 "Bước 4: Có thể thay đổi đường dẫn lưu flie và tên flie nữa nhé.\n" +
                 "Bước 5: Khi tải xong sẽ có thông báo, có thể tắt hoặc tải tài liệu tiếp theo.\n" +
                 "Bước 6: Bước 5 là hết rồi nhé, tại mới Update nên nó đơn giản hơn phiên bản cũ....\n" +
-                "Bước 7: Nói là hết rồi mà còn ráng đọc tới đây chi nữa thím :< \n" +
-                "Cảm ơn <3", "HƯỚNG DẪN SỬ DỤNG AUTODOWN by Huy");
+                "Bước 7: Nói là hết rồi mà còn ráng đọc tới đây chi nữa :< \n" +
+                "Cảm ơn <3", "HƯỚNG DẪN SỬ DỤNG AUTODOWN");
 
             Process.Start("https://github.com/thanhhuy114/AutoDown");
         }
